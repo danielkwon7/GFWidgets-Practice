@@ -12,6 +12,10 @@ export default class Clock extends React.Component {
     this.intervalId = setInterval(this.tick, 1000);
   }
 
+  componentWillUnmount() {
+    this.intervalId.clearInterval();
+  }
+
   tick() {
     this.setState({time: new Date()});
   }
@@ -28,12 +32,15 @@ export default class Clock extends React.Component {
     return (
       <div>
         <h1>Clock</h1>
-        <div classname='clock'>
+        <div className='clock'>
           <p>
             <span>Time:</span>
             <span>{hours}:{minutes}:{seconds} PDT</span>
           </p>
-          <p>Date: {this.state.time.toDateString()}</p>
+          <p>
+            <span>Date: </span>
+            <span>{this.state.time.toDateString()}</span>
+          </p>
         </div>
       </div>
     )

@@ -22471,6 +22471,11 @@ var Clock = function (_React$Component) {
       this.intervalId = setInterval(this.tick, 1000);
     }
   }, {
+    key: 'componentWillUnmount',
+    value: function componentWillUnmount() {
+      this.intervalId.clearInterval();
+    }
+  }, {
     key: 'tick',
     value: function tick() {
       this.setState({ time: new Date() });
@@ -22496,7 +22501,7 @@ var Clock = function (_React$Component) {
         ),
         _react2.default.createElement(
           'div',
-          { classname: 'clock' },
+          { className: 'clock' },
           _react2.default.createElement(
             'p',
             null,
@@ -22519,8 +22524,16 @@ var Clock = function (_React$Component) {
           _react2.default.createElement(
             'p',
             null,
-            'Date: ',
-            this.state.time.toDateString()
+            _react2.default.createElement(
+              'span',
+              null,
+              'Date: '
+            ),
+            _react2.default.createElement(
+              'span',
+              null,
+              this.state.time.toDateString()
+            )
           )
         )
       );
