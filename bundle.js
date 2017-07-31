@@ -22492,7 +22492,36 @@ var Clock = function (_React$Component) {
         _react2.default.createElement(
           'h1',
           null,
-          'CL'
+          'Clock'
+        ),
+        _react2.default.createElement(
+          'div',
+          { classname: 'clock' },
+          _react2.default.createElement(
+            'p',
+            null,
+            _react2.default.createElement(
+              'span',
+              null,
+              'Time:'
+            ),
+            _react2.default.createElement(
+              'span',
+              null,
+              hours,
+              ':',
+              minutes,
+              ':',
+              seconds,
+              ' PDT'
+            )
+          ),
+          _react2.default.createElement(
+            'p',
+            null,
+            'Date: ',
+            this.state.time.toDateString()
+          )
         )
       );
     }
