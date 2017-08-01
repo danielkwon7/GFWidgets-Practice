@@ -22781,11 +22781,25 @@ var AutoComplete = function (_React$Component) {
       });
       return _react2.default.createElement(
         'div',
-        { className: 'auto' },
-        _react2.default.createElement('input', {
-          onChange: this.handleInput,
-          value: this.state.inputVal,
-          placeholder: 'Search...' })
+        null,
+        _react2.default.createElement(
+          'h1',
+          null,
+          'Autocomplete'
+        ),
+        _react2.default.createElement(
+          'div',
+          { className: 'auto' },
+          _react2.default.createElement('input', {
+            onChange: this.handleInput,
+            value: this.state.inputVal,
+            placeholder: 'Search...' }),
+          _react2.default.createElement(
+            'ul',
+            null,
+            results
+          )
+        )
       );
     }
   }]);

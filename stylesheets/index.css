@@ -1,3 +1,19 @@
+.auto{
+  color: black;
+  font-size: 15px;
+  font-weight: bold;
+  font-family: sans-serif;
+  width: 550px;
+  height: 94px;
+  border: 2px solid black;
+  margin: 0 20px 20px 20px;
+  padding: 10px;
+  background-color: black;
+  background-image: url(http://media.corporate-ir.net/media_files/IROL/17/176060/img/logos/amazon_logo_RGB.jpg);
+  background-size: cover;
+  background-position: center;
+}
+
 .clock {
   font-size: 28px;
   color: white;
