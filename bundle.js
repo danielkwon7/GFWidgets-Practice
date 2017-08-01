@@ -22655,7 +22655,7 @@ var Weather = function (_React$Component) {
         content = _react2.default.createElement(
           'div',
           { className: 'loading' },
-          'loading weather...'
+          'Loading weather...'
         );
       }
       return _react2.default.createElement(

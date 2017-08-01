@@ -54,7 +54,7 @@ export default class Weather extends React.Component {
                   <p>{temp.toFixed(1)} degrees</p>
                 </div>;
     } else {
-      content = <div className='loading'>loading weather...</div>;
+      content = <div className='loading'>Loading weather...</div>;
     }
     return (
       <div>
