@@ -9754,6 +9754,10 @@ var _clock = __webpack_require__(184);
 
 var _clock2 = _interopRequireDefault(_clock);
 
+var _weather = __webpack_require__(185);
+
+var _weather2 = _interopRequireDefault(_weather);
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
@@ -9777,7 +9781,8 @@ var Root = function (_React$Component) {
       return _react2.default.createElement(
         'div',
         null,
-        _react2.default.createElement(_clock2.default, null)
+        _react2.default.createElement(_clock2.default, null),
+        _react2.default.createElement(_weather2.default, null)
       );
     }
   }]);
@@ -22544,6 +22549,137 @@ var Clock = function (_React$Component) {
 }(_react2.default.Component);
 
 exports.default = Clock;
+
+/***/ }),
+/* 185 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+var _react = __webpack_require__(82);
+
+var _react2 = _interopRequireDefault(_react);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+var toQueryString = function toQueryString(obj) {
+  var parts = [];
+  for (var i in obj) {
+    if (obj.hasOwnProperty(i)) {
+      parts.push(encodeURIComponent(i) + '=' + encodeURIComponent(obj[i]));
+    }
+  }
+  return parts.join('&');
+};
+
+var Weather = function (_React$Component) {
+  _inherits(Weather, _React$Component);
+
+  function Weather(props) {
+    _classCallCheck(this, Weather);
+
+    var _this = _possibleConstructorReturn(this, (Weather.__proto__ || Object.getPrototypeOf(Weather)).call(this, props));
+
+    _this.state = {
+      weather: null
+    };
+    _this.pollWeather = _this.pollWeather.bind(_this);
+    return _this;
+  }
+
+  _createClass(Weather, [{
+    key: 'componentDidMount',
+    value: function componentDidMount() {
+      navigator.geolocation.getCurrentPosition(this.pollWeather);
+    }
+  }, {
+    key: 'pollWeather',
+    value: function pollWeather(location) {
+      var _this2 = this;
+
+      var url = 'http://api.openweathermap.org/data/2.5/weather?';
+      var params = {
+        lat: location.coords.latitude.toFixed(1),
+        lon: location.coords.longitude.toFixed(1)
+      };
+      url += toQueryString(params);
+      var apiKey = 'c996d8ed4e3de92a0cded3a86cb92e58';
+      url += '&APPID=' + apiKey;
+
+      var xmlhttp = new XMLHttpRequest();
+      xmlhttp.onreadystatechange = function () {
+        if (xmlhttp.status === 200 && xmlhttp.readyState === XMLHttpRequest.DONE) {
+          var data = JSON.parse(xmlhttp.responseText);
+          _this2.setState({ weather: data });
+        }
+      };
+      xmlhttp.open('GET', url, true);
+      xmlhttp.send();
+    }
+  }, {
+    key: 'render',
+    value: function render() {
+      var content = _react2.default.createElement('div', null);
+      if (this.state.weather) {
+        var weather = this.state.weather;
+        var temp = (weather.main.temp - 273.15) * 1.8 + 32;
+        content = _react2.default.createElement(
+          'div',
+          null,
+          _react2.default.createElement(
+            'p',
+            null,
+            weather.name
+          ),
+          _react2.default.createElement(
+            'p',
+            null,
+            temp.toFixed(1),
+            ' degrees'
+          )
+        );
+      } else {
+        content = _react2.default.createElement(
+          'div',
+          { className: 'loading' },
+          'loading weather...'
+        );
+      }
+      return _react2.default.createElement(
+        'div',
+        null,
+        _react2.default.createElement(
+          'h1',
+          null,
+          'Weather'
+        ),
+        _react2.default.createElement(
+          'div',
+          { className: 'weather' },
+          content
+        )
+      );
+    }
+  }]);
+
+  return Weather;
+}(_react2.default.Component);
+
+exports.default = Weather;
+;
 
 /***/ })
 /******/ ]);
