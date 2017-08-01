@@ -22793,7 +22793,7 @@ var AutoComplete = function (_React$Component) {
           _react2.default.createElement('input', {
             onChange: this.handleInput,
             value: this.state.inputVal,
-            placeholder: 'Search...' }),
+            placeholder: 'Search name...' }),
           _react2.default.createElement(
             'ul',
             null,

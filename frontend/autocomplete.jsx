@@ -52,7 +52,7 @@ export default class AutoComplete extends React.Component {
           <input
             onChange={this.handleInput}
             value={this.state.inputVal}
-            placeholder='Search...'/>
+            placeholder='Search name...'/>
           <ul>
             {results}
           </ul>
