@@ -9758,6 +9758,10 @@ var _weather = __webpack_require__(185);
 
 var _weather2 = _interopRequireDefault(_weather);
 
+var _autocomplete = __webpack_require__(186);
+
+var _autocomplete2 = _interopRequireDefault(_autocomplete);
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
@@ -9765,6 +9769,8 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
 function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
 
 function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+var Names = ['Daniel', 'Esther', 'David'];
 
 var Root = function (_React$Component) {
   _inherits(Root, _React$Component);
@@ -9782,7 +9788,12 @@ var Root = function (_React$Component) {
         'div',
         null,
         _react2.default.createElement(_clock2.default, null),
-        _react2.default.createElement(_weather2.default, null)
+        _react2.default.createElement(_weather2.default, null),
+        _react2.default.createElement(
+          'div',
+          { className: 'interactive' },
+          _react2.default.createElement(_autocomplete2.default, { names: Names })
+        )
       );
     }
   }]);
@@ -22679,6 +22690,110 @@ var Weather = function (_React$Component) {
 }(_react2.default.Component);
 
 exports.default = Weather;
+;
+
+/***/ }),
+/* 186 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+var _react = __webpack_require__(82);
+
+var _react2 = _interopRequireDefault(_react);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+var AutoComplete = function (_React$Component) {
+  _inherits(AutoComplete, _React$Component);
+
+  function AutoComplete(props) {
+    _classCallCheck(this, AutoComplete);
+
+    var _this = _possibleConstructorReturn(this, (AutoComplete.__proto__ || Object.getPrototypeOf(AutoComplete)).call(this, props));
+
+    _this.state = {
+      inputVal: ''
+    };
+    _this.selectName = _this.selectName.bind(_this);
+    _this.handleInput = _this.handleInput.bind(_this);
+    return _this;
+  }
+
+  _createClass(AutoComplete, [{
+    key: 'handleInput',
+    value: function handleInput(event) {
+      this.setState({ inputVal: event.currentTarget.value });
+    }
+  }, {
+    key: 'matches',
+    value: function matches() {
+      var _this2 = this;
+
+      var matches = [];
+      if (this.state.inputVal.length === 0) {
+        return this.props.names;
+      }
+
+      this.props.names.forEach(function (name) {
+        var sub = name.slice(0, _this2.state.inputVal.length);
+        if (sub.toLowerCase() === _this2.state.inputVal.toLowerCase()) {
+          matches.push(name);
+        }
+      });
+
+      if (matches.length === 0) {
+        matches.push('No matches');
+      }
+
+      return matches;
+    }
+  }, {
+    key: 'selectName',
+    value: function selectName(event) {
+      var name = event.currentTarget.innerText;
+      this.setState({ inputVal: name });
+    }
+  }, {
+    key: 'render',
+    value: function render() {
+      var _this3 = this;
+
+      var results = this.matches().map(function (result, i) {
+        return _react2.default.createElement(
+          'li',
+          { key: i, onClick: _this3.selectName },
+          result
+        );
+      });
+      return _react2.default.createElement(
+        'div',
+        { className: 'auto' },
+        _react2.default.createElement('input', {
+          onChange: this.handleInput,
+          value: this.state.inputVal,
+          placeholder: 'Search...' })
+      );
+    }
+  }]);
+
+  return AutoComplete;
+}(_react2.default.Component);
+
+exports.default = AutoComplete;
 ;
 
 /***/ })
